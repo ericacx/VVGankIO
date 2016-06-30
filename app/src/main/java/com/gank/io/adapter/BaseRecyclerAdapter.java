@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import static android.R.attr.id;
+
 
 /**
  * *          _       _
@@ -19,15 +21,15 @@ import java.util.List;
  * Created by vivian on 16/6/27.
  */
 
-public abstract class BaseRecyclerAdapter<T,VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseRecyclerAdapter<T extends BaseRecyclerAdapter.ViewHolder> extends RecyclerView.Adapter<T> {
     protected List<T> mData;
     protected Context mContext;
-    protected int mItemViewRes;
+    protected int mLayoutRes;
 
-    public BaseRecyclerAdapter(Context context, List<T> data,int id) {
-        mContext=context;
+    public BaseRecyclerAdapter(Context context, List<T> data, int layoutRes) {
+        mContext = context;
         mData = data;
-        mItemViewRes=id;
+        mLayoutRes = id;
     }
 
     public void setmData(List<T> data) {
@@ -35,15 +37,14 @@ public abstract class BaseRecyclerAdapter<T,VH extends RecyclerView.ViewHolder> 
     }
 
     @Override
-    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(mItemViewRes, null);
-//        VH viewHolder = new VH(view);
-        return null
-                ;
+    public T onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(mLayoutRes, null);
+        T viewHolder=(T)(new ViewHolder(view));
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(T holder, int position) {
 
     }
 
@@ -53,4 +54,10 @@ public abstract class BaseRecyclerAdapter<T,VH extends RecyclerView.ViewHolder> 
     }
 
 
+    public class ViewHolder extends RecyclerView.ViewHolder{
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 }
