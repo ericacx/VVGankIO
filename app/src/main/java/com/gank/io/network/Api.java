@@ -19,9 +19,17 @@ import rx.Observable;
  */
 
 public class Api {
+    private static Api api;
     private final Retrofit retrofit;
     private final MessageApi messageApi;
     private final GirlApi girlApi;
+
+    public static Api getInstance() {
+        if (api == null) {
+            api = new Api();
+        }
+        return api;
+    }
 
     public Api() {
         retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)

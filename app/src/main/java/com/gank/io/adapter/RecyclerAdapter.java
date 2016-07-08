@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.gank.io.R;
 import com.gank.io.bean.Message;
+import com.gank.io.network.GlideUtil;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private Context mContext;
 
     public RecyclerAdapter(Context context, List<Message> data) {
-        mContext=context;
+        mContext = context;
         mData = data;
     }
 
@@ -47,7 +47,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(mContext).load(mData.get(position).getUrl()).crossFade().into(holder.mImage);
+        GlideUtil.loadPic(mContext, mData.get(position).getUrl(), holder.mImage);
+//        Glide.with(mContext).load(mData.get(position).getUrl()).crossFade().into(holder.mImage);
 //        holder.mTitle.setText(mData.get(position).getWho());
 //        holder.mContent.setText(mData.get(position).getDesc());
     }
@@ -64,7 +65,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImage=(ImageView)itemView.findViewById(R.id.image);
+            mImage = (ImageView) itemView.findViewById(R.id.image);
 //            mTitle = (TextView) itemView.findViewById(R.id.title);
 //            mContent = (TextView) itemView.findViewById(R.id.content);
         }
