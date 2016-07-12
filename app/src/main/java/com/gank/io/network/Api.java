@@ -1,12 +1,9 @@
 package com.gank.io.network;
 
-import com.gank.io.bean.Girl;
-import com.gank.io.bean.Message;
-
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
 
 /**
  * *          _       _
@@ -19,33 +16,33 @@ import rx.Observable;
  */
 
 public class Api {
-    private static Api api;
-    private final Retrofit retrofit;
-    private final MessageApi messageApi;
-    private final GirlApi girlApi;
 
-    public static Api getInstance() {
-        if (api == null) {
-            api = new Api();
-        }
-        return api;
-    }
-
-    public Api() {
-        retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+    public static <T> T createApi(Class<T> tClass, String url) {
+        OkHttpClient client = OkHttpClientProvider.get();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-        messageApi = retrofit.create(MessageApi.class);
-        girlApi = retrofit.create(GirlApi.class);
+        return retrofit.create(tClass);
     }
 
-    public Observable<Result<Message>> getMessageList(int month, int day) {
-        return messageApi.getAndroid(month, day);
-    }
-
-    public Observable<Result<Girl>> getGirlList(int month, int day) {
-        return girlApi.getGirlList(month, day);
+    /**
+     * 有默认的 baseUrl
+     * @param tClass
+     * @param <T>
+     * @return
+     */
+    public static <T> T createApi(Class<T> tClass) {
+        OkHttpClient client = OkHttpClientProvider.get();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        return retrofit.create(tClass);
     }
 
 }

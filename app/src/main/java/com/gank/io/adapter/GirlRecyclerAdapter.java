@@ -8,6 +8,8 @@ import com.gank.io.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * *          _       _
  * *   __   _(_)_   _(_) __ _ _ __
@@ -29,11 +31,11 @@ public class GirlRecyclerAdapter extends BaseRecyclerAdapter {
     }
 
     public class ViewHolder extends BaseRecyclerAdapter.ViewHolder {
+        @BindView(R.id.image)
         public ImageView mImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImage = (ImageView) itemView.findViewById(R.id.image);
         }
     }
 }

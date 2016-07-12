@@ -8,6 +8,7 @@ import com.gank.io.network.Api;
 import com.gank.io.network.BaseSubscriber;
 import com.gank.io.network.Result;
 import com.gank.io.network.ResultFunc;
+import com.gank.io.network.apis.MessageService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +55,10 @@ public class MainActivityPresenter extends BasePresenter {
 
     @Override
     public void initData() {
-        Api api = Api.getInstance();
         Observable<Result<Message>> messageListCall;
         BaseSubscriber<Result<Message>> subscriber;
         //请求数据
-        messageListCall = api.getMessageList(month, day);
+        messageListCall= Api.createApi(MessageService.class).getMessageList(month,day);
         subscriber = new BaseSubscriber<Result<Message>>(context) {
             @Override
             public void onCompleted() {

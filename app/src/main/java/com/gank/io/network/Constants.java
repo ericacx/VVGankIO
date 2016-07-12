@@ -12,4 +12,12 @@ package com.gank.io.network;
 
 public class Constants {
     public static String BASE_URL="http://gank.io/api/data/";
+
+    public static final String TOKEN="MY_TOKEN";
+
+
+
+
 }
+
+

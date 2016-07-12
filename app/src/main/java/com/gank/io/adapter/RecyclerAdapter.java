@@ -14,6 +14,8 @@ import com.gank.io.network.GlideUtil;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 
 /**
  * *          _       _
@@ -59,15 +61,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.image)
         public ImageView mImage;
         public TextView mTitle;
         public TextView mContent;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImage = (ImageView) itemView.findViewById(R.id.image);
-//            mTitle = (TextView) itemView.findViewById(R.id.title);
-//            mContent = (TextView) itemView.findViewById(R.id.content);
         }
     }
 }

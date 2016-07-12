@@ -1,6 +1,7 @@
-package com.gank.io.network;
+package com.gank.io.network.apis;
 
 import com.gank.io.bean.Girl;
+import com.gank.io.network.Result;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -15,7 +16,7 @@ import retrofit2.http.Path;
  * Created by vivian on 16/6/29.
  */
 
-public interface GirlApi {
+public interface GirlService {
     @GET("福利/{month}/{day}")
     public rx.Observable<Result<Girl>> getGirlList(@Path("month")int month, @Path("day")int day);
 }
